@@ -131,6 +131,11 @@
     App.Views = {};
     App.Models = {};
     App.Collections = {};
+    App.Helpers = {
+        formatDate: function (date) {
+            return window.moment(date).fromNow();
+        }
+    };
 
     window.App = App;
 })(window, _, Backbone);

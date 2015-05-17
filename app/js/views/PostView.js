@@ -12,7 +12,13 @@
             this.render();
         },
         render: function () {
-            this.$el.html(this.template(this.model.toJSON()));
+            var model = this.model.toJSON();
+
+            if (model.date) {
+                model.date = App.Helpers.formatDate(model.date);
+            }
+
+            this.$el.html(this.template(model));
 
             return this;
         },
