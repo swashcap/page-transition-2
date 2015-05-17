@@ -11,6 +11,7 @@
   "latedef": true,
   "newcap": true,
   "noarg": true,
+  "predef": ["_", "Backbone"],
   "quotmark": "single",
   "undef": true,
   "unused": true,

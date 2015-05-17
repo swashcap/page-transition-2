@@ -5,7 +5,7 @@
         'kebabCase': function (word) {
             return word .trim().toLowerCase().replace(' ', '-');
         }
-    })
+    });
 
     var posts = [{
         title: 'Pellentesque Imperdiet Tempor Varius',
@@ -43,7 +43,7 @@
             var collection = new App.Collections.Posts();
 
             _.each(posts, function (post) {
-                var model = new App.Models.Post(post)
+                var model = new App.Models.Post(post);
 
                 collection.add(model);
                 self._models.push(model);
@@ -122,7 +122,7 @@
         });
         this.Router.on('route.post', function (year, month, title) {
             Controller.setup('post', title);
-            console.log('Post route', title)
+            console.log('Post route', title);
         });
 
         Backbone.history.start({pushState: true});

@@ -1,4 +1,4 @@
-(function (window) {
+(function (window, Backbone) {
     'use strict';
 
     var App = window.App || {};
@@ -11,4 +11,4 @@
             author: ''
         }
     });
-})(window);
+})(window, Backbone);

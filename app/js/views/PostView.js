@@ -22,7 +22,7 @@
         goToPost: function (e) {
             e.preventDefault();
 
-            console.log(this)
+            console.log(this);
         }
     });
 })(window, _, jQuery);
