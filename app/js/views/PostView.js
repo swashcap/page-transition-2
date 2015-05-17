@@ -5,7 +5,7 @@
 
     App.Views.PostView = Backbone.View.extend({
         tagName: 'article',
-        className: 'hentry',
+        className: 'hentry post',
         template: _.template($('#template-post').html()),
         initialize: function (model) {
             this.model = model;
@@ -17,6 +17,7 @@
             if (model.date) {
                 model.date = App.Helpers.formatDate(model.date);
             }
+            model.permalink = App.Helpers.urlFromModel(this.model);
 
             this.$el.html(this.template(model));
 
@@ -28,7 +29,14 @@
         goToPost: function (e) {
             e.preventDefault();
 
-            console.log(this);
+            App.Router.navigate(
+                App.Helpers.stripLeadingSlash($(e.target).attr('href')),
+                {trigger: true}
+            );
+        },
+        close: function () {
+            this.model = null;
+            this.remove();
         }
     });
 })(window, _, jQuery);

@@ -25,10 +25,10 @@
         },
         close: function () {
             _.each(this.views, function (view) {
-                view.remove();
-                view = null;
+                view.close();
             });
 
+            this.collection = null;
             this.remove();
         }
     });

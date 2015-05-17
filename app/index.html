@@ -46,7 +46,6 @@
         <script id="template-page" type="text/template">
             <header>
                 <h1 class="entry-title"><%= title %></h1>
-                <time class="published updated" datetime=""><%= date %></time>
             </header>
             <div class="entry-content">
                 <%= content %>
@@ -61,9 +60,24 @@
                 <p><%= excerpt %></p>
             </div>
             <footer>
-                <a href="#" rel="bookmark">Read Post</a>
+                <a href="<%= permalink %>" rel="bookmark">Read Post</a>
                 <div class="author vcard hidden">
-                    <a href="#" class="fn n url"><%= author %></a>
+                    <span class="fn n"><%= author %></span>
+                </div>
+            </footer>
+        </script>
+        <script id="template-post-single" type="text/template">
+            <header>
+                <h1 class="entry-title"><%= title %></h1>
+                <time class="published updated"><%= date %></time>
+            </header>
+            <div class="entry-content">
+                <%= content %>
+            </div>
+            <footer class="hidden">
+                <a href="<%= permalink %>" rel="bookmark">Permalink</a>
+                <div class="author vcard hidden">
+                    <span class="fn n"><%= author %></span>
                 </div>
             </footer>
         </script>
@@ -72,11 +86,13 @@
         <script src="js/vendor/backbone-min.js"></script>
         <script src="js/vendor/moment.min.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/models/Page.js"></script>
         <script src="js/models/Post.js"></script>
         <script src="js/collections/Posts.js"></script>
         <script src="js/views/PageView.js"></script>
         <script src="js/views/PostView.js"></script>
         <script src="js/views/PostListView.js"></script>
+        <script src="js/views/PostSingleView.js"></script>
         <script src="js/views/AppView.js"></script>
         <script src="js/router.js"></script>
         <script>window.App.init();</script>

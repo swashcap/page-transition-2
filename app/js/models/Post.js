@@ -8,7 +8,8 @@
             title: '',
             excerpt: '',
             date: new Date(),
-            author: ''
+            author: '',
+            content: ''
         }
     });
 })(window, Backbone);

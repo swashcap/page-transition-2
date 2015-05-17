@@ -14,6 +14,7 @@
             } else {
                 return 0;
             }
-        }
+        },
+        url: '/posts'
     });
 })(window, Backbone);
