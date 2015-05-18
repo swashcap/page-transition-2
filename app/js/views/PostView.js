@@ -5,7 +5,7 @@
 
     App.Views.PostView = Backbone.View.extend({
         tagName: 'article',
-        className: 'hentry post',
+        className: 'hentry article--post',
         template: _.template($('#template-post').html()),
         initialize: function (model) {
             this.model = model;

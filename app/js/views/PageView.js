@@ -5,7 +5,7 @@
 
     App.Views.PageView = Backbone.View.extend({
         tagName: 'article',
-        className: 'hentry page',
+        className: 'hentry article--page',
         template: _.template($('#template-page').html()),
 
         initialize: function (model) {

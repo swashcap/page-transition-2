@@ -67,12 +67,12 @@
         <script id="template-post-single" type="text/template">
             <header>
                 <h1 class="entry-title"><%= title %></h1>
-                <time class="published updated"><%= date %></time>
             </header>
             <div class="entry-content">
                 <%= content %>
             </div>
-            <footer class="hidden">
+            <footer>
+                <time class="published updated"><%= date %></time>
                 <a href="<%= permalink %>" rel="bookmark">Permalink</a>
                 <div class="author vcard hidden">
                     <span class="fn n"><%= author %></span>

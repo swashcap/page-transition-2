@@ -5,7 +5,7 @@
 
     App.Views.PostSingle = Backbone.View.extend({
         tagName: 'article',
-        className: 'hentry page',
+        className: 'hentry article--page',
         template: _.template($('#template-post-single').html()),
         initialize: function (model) {
             this.model = model;
@@ -15,6 +15,10 @@
             var data = this.model.toJSON();
 
             data.permalink = App.Helpers.urlFromModel(this.model);
+
+            if (data.date) {
+                data.date = App.Helpers.formatDate(data.date);
+            }
 
             this.$el.html(this.template(data));
             return this;

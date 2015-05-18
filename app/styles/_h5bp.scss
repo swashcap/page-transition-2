@@ -166,20 +166,9 @@ header[role='banner'] ul:last-child li {
     margin: .6em .333em 0;
 }
 header[role='banner'] ul:last-child a {
-    border-radius: 1.5em;
-    border: thin solid;
+    @include button;
+
     line-height: inherit;
-    font-weight: 700;
-    font-size: 87.5%;
-    font-weight: 700;
-    text-decoration: none;
-    padding: .75em 1.25em;
-    transition-property: background, color, text-shadow;
-}
-header[role='banner'] ul:last-child a:focus,
-header[role='banner'] ul:last-child a:hover,
-header[role='banner'] ul:last-child a:active {
-    background: rgba(255, 255, 255, .1);
 }
 
 /** Main */

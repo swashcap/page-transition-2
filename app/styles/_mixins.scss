@@ -1,0 +1,24 @@
+/* ==========================================================================
+   Mixins
+   ========================================================================== */
+
+@mixin button {
+    border: thin solid;
+    border-radius: 2em;
+    color: inherit;
+    display: inline-block;
+    font-size: 87.5%;
+    font-weight: 700;
+    text-decoration: none;
+    padding: .75em 1.25em;
+    transition-duration: 250ms;
+    transition-property: background, text-shadow;
+
+    &:focus,
+    &:hover,
+    &:active {
+        background: #666;
+        background: rgba(255, 255, 255, .1);
+        text-shadow: 0 0 3px rgba(0, 0, 0, .1);
+    }
+}
