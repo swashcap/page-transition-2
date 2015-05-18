@@ -5,14 +5,18 @@
 
     App.Views.PostSingle = Backbone.View.extend({
         tagName: 'article',
-        className: 'hentry post-single',
+        className: 'hentry page',
         template: _.template($('#template-post-single').html()),
         initialize: function (model) {
             this.model = model;
             this.render();
         },
         render: function () {
-            this.$el.html(this.template(this.model.toJSON()));
+            var data = this.model.toJSON();
+
+            data.permalink = App.Helpers.urlFromModel(this.model);
+
+            this.$el.html(this.template(data));
             return this;
         },
         close: function () {

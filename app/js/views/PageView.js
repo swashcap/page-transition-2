@@ -15,7 +15,8 @@
         render: function () {
             var model = this.model.toJSON();
 
-            this.$el.html(this.template(model));
+            this.$el.append(this.template(model));
+
             return this;
         },
         close: function () {

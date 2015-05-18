@@ -99,6 +99,13 @@ html {
     background: #434652;
     color: #99999d;
 }
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
 *,
 *:before,
 *:after {
@@ -106,6 +113,15 @@ html {
 }
 
 /** Header */
+
+header[role='banner'] {
+    color: rgba(255, 255, 255, .45);
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
 
 header[role='banner'] a {
     color: inherit;
@@ -166,6 +182,22 @@ header[role='banner'] ul:last-child a:active {
     background: rgba(255, 255, 255, .1);
 }
 
+/** Main */
+
+main[role='main'] {
+    height: 100%;
+    width: 100%;
+}
+
+/** Footer */
+
+footer[role='contentinfo'] {
+    bottom: 0;
+    left: 0;
+    padding: 0 1.5em;
+    position: fixed;
+    width: 100%;
+}
 
 /* ==========================================================================
    Helper classes

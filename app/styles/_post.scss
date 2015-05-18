@@ -122,7 +122,7 @@
 /** No Touchie */
 
 .no-touch .post:before {
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, .075) 50%, rgba(255, 255, 255, 0) 50%);
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, .075) 50%, rgba(255, 255, 255, 0) 50%);
     content: '';
     display: block;
     position: absolute;

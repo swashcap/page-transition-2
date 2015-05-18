@@ -45,6 +45,21 @@
         excerpt: 'Sed eleifend tortor et maximus vulputate. Etiam condimentum fermentum massa eu elementum. Vivamus eros nisl, lobortis sed auctor nec, pharetra sit amet nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
         date: new Date(2015, 4, 6),
         content: ''
+    }, {
+        title: 'Suspendisse non Auctor Neque',
+        excerpt: 'Fusce eget turpis mi. Fusce in nisl tellus. In at libero posuere ipsum sollicitudin mollis. Mauris a neque id nisl ultrices rhoncus in et justo.',
+        date: new Date(2015, 4, 16),
+        content: '<p>Vivamus hendrerit arcu dui, vel tristique tellus dictum non. Proin placerat mauris ac ex cursus tempus. Nulla facilisi. Vestibulum nulla lectus, venenatis sit amet lacinia non, lacinia at ipsum.</p><p>Integer ac neque vel massa fringilla tincidunt. In a feugiat tortor. Suspendisse feugiat sit amet sapien quis gravida. Duis pharetra odio a suscipit commodo. Aliquam pretium nibh quis metus convallis facilisis. Praesent ullamcorper ultricies posuere.</p>'
+    }, {
+        title: 'Cras Elementum Massa Placerat',
+        excerpt: 'Finibus risus at, pellentesque est. Integer purus ante, facilisis at volutpat non, pharetra vitae orci. Nulla sollicitudin tortor in odio vestibulum, ac vulputate sem consectetur. Etiam vehicula mattis egestas.',
+        date: new Date(2015, 4, 15),
+        content: '<blockquote>Phasellus ornare nec dolor quis cursus.</blockquote><p>Nulla imperdiet ipsum sit amet viverra elementum. Nam molestie, tellus id pharetra faucibus, nunc ligula dapibus nisi, sollicitudin consectetur nisl dolor ut ipsum. Nulla ultrices imperdiet tincidunt. Suspendisse a faucibus mi. Sed varius sollicitudin mattis. Nam dictum vitae mi a sagittis.</p><p>Quisque auctor, felis sed mattis finibus, ante mi maximus leo, ullamcorper fringilla nulla sem ut dui. Donec fermentum, sapien a rutrum dignissim, purus magna porta ex, non placerat tortor neque pharetra ligula.</p>'
+    }, {
+        title: 'Etiam Bibendum',
+        excerpt: 'Vulputate imperdiet aenean vulputate efficitur turpis vitae feugiat. Duis sed condimentum orci, eget accumsan neque. Nunc mattis, diam ac posuere rhoncus, ligula justo faucibus elit, posuere feugiat elit elit ut nisi.',
+        date: new Date(2015, 4, 14),
+        content: '<p>In elementum arcu eget est cursus convallis. Quisque pretium purus quis nisi hendrerit, sit amet tempor lorem suscipit. Nulla lobortis pulvinar volutpat. Pellentesque laoreet commodo lobortis. In semper, purus vitae lobortis venenatis, velit felis rhoncus purus, placerat pharetra eros tellus ut quam.</p>'
     }];
 
     var pages = [{
@@ -100,7 +115,7 @@
                             _(model.get('title')).kebabCase() === options
                         );
                     });
-                    this._view = App.Views.PostSingleView;
+                    this._view = App.Views.PostSingle;
                     break;
                 case 'page':
                     this._model = _.find(Store._models, function (model) {
@@ -111,61 +126,46 @@
             }
         },
         reset: function () {
-            if (this._view) {
-                this._view = null;
-            }
-            if (this._model) {
-                this._model = null;
-            }
-            if (this._collection) {
-                this._collection = null;
-            }
+            this._view = this._model = this._collection = null;
         }
     };
 
     App.init = function () {
-        var appView = new App.Views.AppView();
-        var transitionTo = function (route, options) {
-            Controller.setup(route, options);
-
-            if (view) {
-                view.close();
-            }
-
-            view = new Controller._view(
-                Controller._collection ? Controller._collection : Controller._model
-            );
-            appView.render(view);
-        };
-        var view;
+        this._appView = new App.Views.AppView();
 
         Store.initialize();
-
-        this.Router.on('route:home', function () {
-            transitionTo('home');
-        });
-        this.Router.on('route:page', function (title) {
-            transitionTo('page', title);
-        });
-        this.Router.on('route.post', function (year, month, title) {
-            transitionTo('post', title);
-        });
 
         // Make header links use Router
         $('header[role="banner"] a').click(function (e) {
             e.preventDefault();
 
-            var $el = $(e.target);
-
-            // console.log($el.attr('href'));
-
             App.Router.navigate(
-                App.Helpers.stripLeadingSlash($el.attr('href')),
+                App.Helpers.stripLeadingSlash($(e.target).attr('href')),
                 {trigger: true}
             );
         });
 
+        // Wire up routes to `Controller`
+        this.Router.on('route:home', function () {
+            App.transitionTo('home');
+        });
+        this.Router.on('route:page', function (title) {
+            App.transitionTo('page', title);
+        });
+        this.Router.on('route:post', function (year, month, title) {
+            App.transitionTo('post', title);
+        });
+
         Backbone.history.start({pushState: false});
+    };
+    App.transitionTo = function (route, options) {
+        var data;
+
+        Controller.setup(route, options);
+
+        data = Controller._collection ? Controller._collection : Controller._model;
+
+        this._appView.render(new Controller._view(data));
     };
 
     App.Views = {};
@@ -176,9 +176,9 @@
             return window.moment(date).fromNow();
         },
         stripLeadingSlash: function (string) {
-            if (string.charAt(0) === '/') {
-                string = string.slice(1);
-            }
+            // if (string.charAt(0) === '/') {
+            //     string = string.slice(1);
+            // }
 
             return string;
         },
@@ -187,11 +187,18 @@
             var date, title;
 
             if (model instanceof Backbone.Model) {
-                date = model.get('date');
-                title = model.get('title');
+                title = _(model.get('title')).kebabCase();
 
-                url = moment(date).format('YYYY/MM');
-                url += '/' + _(title).kebabCase() + '/';
+                if (model instanceof App.Models.Post) {
+                    date = model.get('date');
+
+                    url = '/post/' + moment(date).format('YYYY/MM');
+                    url += '/' + title + '/';
+                } else if (model instanceof App.Models.Page) {
+                    url = '/page/' + title + '/';
+                } else {
+                    url = '/' + title + '/';
+                }
             }
 
             return url;
