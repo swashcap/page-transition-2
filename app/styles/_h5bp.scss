@@ -169,6 +169,12 @@ header[role='banner'] ul:last-child a {
     @include button;
 
     line-height: inherit;
+
+    &:focus,
+    &:hover,
+    &:active {
+        color: white;
+    }
 }
 
 /** Main */

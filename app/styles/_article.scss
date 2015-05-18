@@ -104,6 +104,11 @@ $red:       #3c4f69;
         display: inline;
         font-size: 135%;
 
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
         @media (min-width: 500px) {
             font-size: 150%;
         }
@@ -131,9 +136,10 @@ $red:       #3c4f69;
 
     footer {
         text-align: center;
-    }
-    a {
-        @include button;
+
+        a {
+            @include button;
+        }
     }
 
     /** Non-Touch Browsers */
@@ -194,8 +200,7 @@ $red:       #3c4f69;
 .article--page {
     @extend %article;
 
-    padding-right: 1em;
-    padding-left: 1em;
+    padding: 1em;
 
     @media (min-width: 500px) {
         &,
