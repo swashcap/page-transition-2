@@ -41,14 +41,6 @@
             <small>Page Transition 2 by <a href="http://swashcap.com/" rel="author">Cory Reed</a>. Source code <a href="https://github.com/swashcap/page-transition-2">on GitHub</a>.</small>
         </footer>
 
-        <script id="template-page" type="text/template">
-            <header>
-                <h1 class="entry-title"><%= title %></h1>
-            </header>
-            <div class="entry-content">
-                <%= content %>
-            </div>
-        </script>
         <script id="template-post" type="text/template">
             <header>
                 <h1 class="entry-title"><a href="<%- permalink %>" rel="bookmark"><%= title %></a></h1>
@@ -64,14 +56,30 @@
                 </div>
             </footer>
         </script>
-        <script id="template-post-single" type="text/template">
-            <header>
+        <script id="template-page" type="text/template">
+            <nav class="article__navigation">
+                <a href="/" rel="home">&larr; Back</a>
+            </nav>
+            <header class="article__header">
                 <h1 class="entry-title"><%= title %></h1>
             </header>
-            <div class="entry-content">
+            <div class="article__content entry-content">
                 <%= content %>
             </div>
-            <footer>
+            <footer class="article__footer">
+            </footer>
+        </script>
+        <script id="template-post-single" type="text/template">
+            <nav class="article__navigation">
+                <a href="/" rel="home">&larr; Back</a>
+            </nav>
+            <header class="article__header">
+                <h1 class="entry-title"><%= title %></h1>
+            </header>
+            <div class="article__content entry-content">
+                <%= content %>
+            </div>
+            <footer class="article__footer">
                 <time class="published updated"><%= date %></time>
                 <a href="<%= permalink %>" rel="bookmark">Permalink</a>
                 <div class="author vcard hidden">

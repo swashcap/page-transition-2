@@ -2,7 +2,7 @@
    Pane
    ========================================================================== */
 
-$pane-animation-duration: 300ms !default;
+$pane-animation-duration: 500ms !default;
 
 .pane-wrapper {
     height: 100%;
@@ -15,7 +15,8 @@ $pane-animation-duration: 300ms !default;
     backface-visibility: hidden;
     height: 100%;
     left: 0;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     padding: 4em 0 2.5em;
     position: absolute;

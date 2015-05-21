@@ -1,16 +1,10 @@
-(function (window, $, _, Backbone) {
+(function (window, $, _) {
     'use strict';
 
     var App = window.App || {};
 
-    App.Views.PostSingle = Backbone.View.extend({
-        tagName: 'article',
-        className: 'hentry article--page',
+    App.Views.PostSingle = App.Views.PageView.extend({
         template: _.template($('#template-post-single').html()),
-        initialize: function (model) {
-            this.model = model;
-            this.render();
-        },
         render: function () {
             var data = this.model.toJSON();
 
@@ -22,10 +16,6 @@
 
             this.$el.html(this.template(data));
             return this;
-        },
-        close: function () {
-            this.model = null;
-            this.remove();
         }
     });
-})(window, jQuery, _, Backbone);
+})(window, jQuery, _);

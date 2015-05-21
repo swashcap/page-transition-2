@@ -204,22 +204,44 @@ $red:       #3c4f69;
 
     @media (min-width: 500px) {
         &,
-        > header,
-        .entry-content,
-        > footer {
+        .article__navigation,
+        .article__header,
+        .article__content,
+        .article__footer {
             padding-right: .75em;
             padding-left: .75em;
         }
     }
     @media (min-width: 900px) {
-        > header,
-        .entry-content {
+        .article__navigation
+        .article__header,
+        .article__content {
             float: left;
             width: 66.67%;
         }
-        > footer {
+        .article__footer {
             float: right;
             width: 33.33%;
+        }
+    }
+
+    .article__navigation {
+        margin-bottom: 1.5em;
+
+        @media (min-width: 500px) {
+            margin-bottom: 2em;
+        }
+
+        a {
+            @include button;
+
+            color: rgba(255, 255, 255, .5);
+
+            &:focus,
+            &:hover,
+            &:active {
+                color: white;
+            }
         }
     }
 

@@ -97,36 +97,36 @@
         _collection: null,
 
         setup: function (type, options) {
-            this.reset();
+            Controller.reset();
 
             switch (type) {
                 case 'home':
-                    this._collection =
+                    Controller._collection =
                         _.find(Store._collections, function (collection) {
                             return collection instanceof App.Collections.Posts;
                         });
 
-                    this._view = App.Views.PostListView;
+                    Controller._view = App.Views.PostListView;
                     break;
                 case 'post':
-                    this._model = _.find(Store._models, function (model) {
+                    Controller._model = _.find(Store._models, function (model) {
                         return (
                             model instanceof App.Models.Post &&
                             _(model.get('title')).kebabCase() === options
                         );
                     });
-                    this._view = App.Views.PostSingle;
+                    Controller._view = App.Views.PostSingle;
                     break;
                 case 'page':
-                    this._model = _.find(Store._models, function (model) {
+                    Controller._model = _.find(Store._models, function (model) {
                         return model instanceof App.Models.Page;
                     });
-                    this._view = App.Views.PageView;
+                    Controller._view = App.Views.PageView;
                     break;
             }
         },
         reset: function () {
-            this._view = this._model = this._collection = null;
+            Controller._view = Controller._model = Controller._collection = null;
         }
     };
 
@@ -156,7 +156,7 @@
             App.transitionTo('post', title);
         });
 
-        Backbone.history.start({pushState: false});
+        Backbone.history.start({pushState: true});
     };
     App.transitionTo = function (route, options) {
         var data;
@@ -165,7 +165,11 @@
 
         data = Controller._collection ? Controller._collection : Controller._model;
 
-        this._appView.render(new Controller._view(data));
+        if (data && Controller._view) {
+            this._appView.render(new Controller._view(data));
+        } else {
+            throw new Error('App.transitionTo: No data or view to use');
+        }
     };
 
     App.Views = {};
@@ -176,9 +180,9 @@
             return window.moment(date).fromNow();
         },
         stripLeadingSlash: function (string) {
-            // if (string.charAt(0) === '/') {
-            //     string = string.slice(1);
-            // }
+            if (string.charAt(0) === '/') {
+                string = string.slice(1);
+            }
 
             return string;
         },

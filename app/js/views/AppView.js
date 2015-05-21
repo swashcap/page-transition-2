@@ -27,8 +27,6 @@
         render: function (view) {
             var isActive1 = this.$pane1.hasClass(ACTIVE_CLASS);
             var isActive2 = this.$pane2.hasClass(ACTIVE_CLASS);
-            var $currentPane;
-            var $nextPane;
 
             if (view && view instanceof Backbone.View) {
                 if (this._view1 === null && this._view2 === null) {

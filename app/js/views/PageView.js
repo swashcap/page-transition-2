@@ -7,17 +7,21 @@
         tagName: 'article',
         className: 'hentry article--page',
         template: _.template($('#template-page').html()),
-
         initialize: function (model) {
             this.model = model;
             this.render();
         },
         render: function () {
-            var model = this.model.toJSON();
-
-            this.$el.append(this.template(model));
-
+            this.$el.html(this.template(this.model.toJSON()));
             return this;
+        },
+        events: {
+            'click .article__navigation a': 'navigateBack'
+        },
+        navigateBack: function (e) {
+            e.preventDefault();
+
+            App.Router.navigate('', {trigger: true});
         },
         close: function () {
             this.model = null;
