@@ -179,6 +179,11 @@
         formatDate: function (date) {
             return window.moment(date).fromNow();
         },
+        getBasedir: function () {
+            var basedir = (App.settings || {}).basedir || '';
+
+            return basedir ? basedir + '/' : '';
+        },
         stripLeadingSlash: function (string) {
             if (string.charAt(0) === '/') {
                 string = string.slice(1);
@@ -187,7 +192,7 @@
             return string;
         },
         urlFromModel: function (model) {
-            var url = '';
+            var url = App.Helpers.getBasedir();
             var date, title;
 
             if (model instanceof Backbone.Model) {
@@ -195,13 +200,10 @@
 
                 if (model instanceof App.Models.Post) {
                     date = model.get('date');
-
-                    url = '/post/' + moment(date).format('YYYY/MM');
+                    url += 'post/' + moment(date).format('YYYY/MM');
                     url += '/' + title + '/';
                 } else if (model instanceof App.Models.Page) {
-                    url = '/page/' + title + '/';
-                } else {
-                    url = '/' + title + '/';
+                    url += 'page/' + title + '/';
                 }
             }
 

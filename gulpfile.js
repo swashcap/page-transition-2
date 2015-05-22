@@ -7,9 +7,10 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 gulp.task('styles', function () {
-    return gulp.src('app/styles/main.scss')
+    return gulp.src('css/main.scss')
         .pipe($.sourcemaps.init())
         .pipe($.sass({
+            includePaths: ['_sass/'],
             outputStyle: 'nested',
             onError: console.error.bind(console, 'Sass error:')
         }))
@@ -17,12 +18,12 @@ gulp.task('styles', function () {
             require('autoprefixer-core')({browsers: ['last 2 version']})
         ]))
         .pipe($.sourcemaps.write())
-        .pipe(gulp.dest('.tmp/styles'))
+        .pipe(gulp.dest('.tmp/css'))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('jshint', function () {
-    return gulp.src(['gulpfile.js', 'app/js/**/*.js', '!app/js/vendor/*.js'])
+    return gulp.src(['gulpfile.js', 'js/**/*.js', '!js/vendor/*.js'])
         .pipe(reload({stream: true, once: true}))
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'))
@@ -36,14 +37,14 @@ gulp.task('serve', ['styles'], function () {
         notify: false,
         port: 9000,
         server: {
-            baseDir: ['.tmp', 'app']
+            baseDir: ['.tmp', '.']
         }
     });
 
     gulp.watch([
-        'app/*.html',
-        'app/js/**/*.js'
+        './*.html',
+        'js/**/*.js'
     ]).on('change', reload);
 
-    gulp.watch('app/styles/**/*.scss', ['styles']);
+    gulp.watch(['css/main.scss', '_sass/**/*.scss'], ['styles']);
 });

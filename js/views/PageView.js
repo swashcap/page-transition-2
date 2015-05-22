@@ -21,7 +21,7 @@
         navigateBack: function (e) {
             e.preventDefault();
 
-            App.Router.navigate('', {trigger: true});
+            App.Router.navigate(App.Helpers.getBasedir(), {trigger: true});
         },
         close: function () {
             this.model = null;
